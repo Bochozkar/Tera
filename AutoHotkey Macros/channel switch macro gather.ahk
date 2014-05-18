@@ -1,3 +1,6 @@
+;TODO
+;Add support for plentiful nodes
+
 global ChannelCount := 3 ;max 3
 global ClientPIDs := [7996, 8944]
 global ClientCount := ClientPIDs.MaxIndex()

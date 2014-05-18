@@ -46,7 +46,7 @@ Loop
 		for index,PID in ClientPIDs
 		{
 			MsgBox %index%
-			SwapClient(%index%)
+			SwapClient(index)
 			Send, F
 			Sleep, 500
 		}
@@ -54,11 +54,11 @@ Loop
 		;Swap channel on each client
 		for index,PID in ClientPIDs
 		{
-			SwapClient(%index%)
+			SwapClient(index)
 			if %CurrentChannel% < %ChannelCount%
 			{
 				NewChannel := %CurrentChannel% + 1
-				SwapChannel(%NewChannel%)
+				SwapChannel(NewChannel)
 			}
 			else SwapChannel(1)
 		}

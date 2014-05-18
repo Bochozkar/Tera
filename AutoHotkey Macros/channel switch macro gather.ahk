@@ -5,7 +5,6 @@ global ClientCount := ClientPIDs.MaxIndex()
 ;Switches window focus to passed client
 SwapClient(clientNum)
 {
-	MsgBox, 0, Switching clients, %clientNum%, 1
 	temp := ClientPIDs[clientNum]
 	WinActivate, ahk_pid %temp%
 	WinWaitActive, ahk_pid %temp%
@@ -22,7 +21,7 @@ SwapChannel(toChannel)
 	MouseClick, left,  1753,  977
 	Sleep, 200
 	MouseClick, left,  951,  459
-	Sleep, 500
+	Sleep, 200
 	
 	if toChannel = 1
 		MouseClick, left,  943,  477
@@ -31,9 +30,9 @@ SwapChannel(toChannel)
 	else if toChannel = 3
 		MouseClick, left,  943,  514
 		
-	Sleep, 500
+	Sleep, 200
 	MouseClick, left,  907,  518
-	Sleep, 100
+	Sleep, 200
 }
 
 ;Program
@@ -45,7 +44,6 @@ Loop
 		;Gather on each client
 		for index,PID in ClientPIDs
 		{
-			MsgBox %index%
 			SwapClient(index)
 			Send, F
 			Sleep, 500
@@ -57,8 +55,7 @@ Loop
 			SwapClient(index)
 			if %CurrentChannel% < %ChannelCount%
 			{
-				NewChannel := %CurrentChannel% + 1
-				SwapChannel(NewChannel)
+				SwapChannel(CurrentChannel + 1)
 			}
 			else SwapChannel(1)
 		}

@@ -1,21 +1,18 @@
+ChannelCount := 3
 ClientCount := 2
+ClientPID1 := 7996
+ClientPID2 := 8944
+ClientPID3 := 0
+ClientPID4 := 0
+ClientPID5 := 0
 
 ;startup delay
-Sleep, 5000
+Sleep, 10000
 
-;Alt-Tabs between clients based on how many clients are open
-AltTabFunc(clients)
+;Switches window focus to passed client
+SwapClient(clientNum)
 {
-	SetKeyDelay 30,50
-	if clients = 2
-		Send, {ALT DOWN}{TAB}{ALT UP}
-	else if clients = 3
-		Send, {ALT DOWN}{TAB}{TAB}{ALT UP}
-	else if clients = 4
-		Send, {ALT DOWN}{TAB}{TAB}{TAB}{ALT UP}
-	else if clients = 5
-		Send, {ALT DOWN}{TAB}{TAB}{TAB}{TAB}{ALT UP}
-	else
+	WinActivate ahk_pid ClientPID%clientNum%
 	Sleep, 900
 }
 
@@ -23,6 +20,7 @@ AltTabFunc(clients)
 SwapChannel(toChannel)
 {
 	Send, {ALT DOWN}{ALT UP}
+	;Wait for UI Lag
 	Sleep, 1000
 	MouseClick, left,  1768,  1038
 	Sleep, 200
@@ -43,47 +41,37 @@ SwapChannel(toChannel)
 	Sleep, 100
 }
 
+;Program
 Loop
 {
-	Loop, %ClientCount%
+	CurrentChannel := 1
+	Loop, %ChannelCount%
 	{
 		;Gather on each client
-		Send, F
-		Sleep, 300
-		AltTabFunc(%ClientCount%)
+		CurrentClient := 1
+		Loop, %ClientCount%
+		{
+			Send, F
+			Sleep, 300
+			if %CurrentClient% < %ClientCount%
+			{
+				SwapClient(%CurrentClient%+1)
+				CurrentClient += 1
+			}
+		}
 		
 		;Swap channel on each client
+		Loop, %ClientCount%
+		{
+			if %CurrentChannel% < %ChannelCount%
+				SwapChannel(%CurrentChannel%+1)
+			else
+				SwapChannel(1)
+		}
 		SwapChannel(1)
+		;Wait for the last one to load in
+		Sleep, 10000
 	}
-	
-	;Swap channels on clients
-	Loop, %ClientCount%
-	{
-		SwapChannel(
-	}
-	
-	Send, {ALT DOWN}{ALT UP}
-	Sleep, 1000
-	MouseClick, left,  1768,  1038
-	Sleep, 200
-	MouseClick, left,  1753,  977
-	Sleep, 200
-	MouseClick, left,  951,  459
-	Sleep, 200
-	SetKeyDelay 30,50
-	Send, {ALT DOWN}{TAB}{ALT UP}
-	Sleep, 900
-	Send, {ALT DOWN}{ALT UP}
-	Sleep, 1000
-	MouseClick, left,  1768,  1038
-	Sleep, 200
-	MouseClick, left,  1753,  977
-	Sleep, 200
-	MouseClick, left,  951,  459
-	Sleep, 200
-	
-	;Wait to load in
-	Sleep, 10000
 
 	;Stop if holding shift
 	GetKeyState, state, Shift

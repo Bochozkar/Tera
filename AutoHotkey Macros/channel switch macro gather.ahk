@@ -1,4 +1,4 @@
-global ChannelCount := 3
+global ChannelCount := 3 ;max 3
 global ClientPIDs := [7996, 8944]
 global ClientCount := ClientPIDs.MaxIndex()
 
@@ -21,16 +21,22 @@ SwapChannel(toChannel)
 	MouseClick, left,  1753,  977
 	Sleep, 200
 	MouseClick, left,  951,  459
-	Sleep, 200
+	Sleep, 500
 	
 	if toChannel = 1
+	{
 		MouseClick, left,  943,  477
+	}
 	else if toChannel = 2
+	{
 		MouseClick, left,  943,  498
+	}
 	else if toChannel = 3
+	{
 		MouseClick, left,  943,  514
+	}
 		
-	Sleep, 200
+	Sleep, 400
 	MouseClick, left,  907,  518
 	Sleep, 200
 }
@@ -53,15 +59,20 @@ Loop
 		for index,PID in ClientPIDs
 		{
 			SwapClient(index)
-			if %CurrentChannel% < %ChannelCount%
+			if (CurrentChannel < ChannelCount)
 			{
 				SwapChannel(CurrentChannel + 1)
 			}
 			else SwapChannel(1)
 		}
 		
-		;Wait for the last one to load in
-		Sleep, 10000
+		;We are in the next channel now
+		if (CurrentChannel < ChannelCount)
+			CurrentChannel += 1
+		else CurrentChannel := 1
+		
+		;Wait for the clients to load in
+		Sleep, 8000
 	}
 
 	;Stop if holding shift

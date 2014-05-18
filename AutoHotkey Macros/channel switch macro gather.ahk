@@ -1,19 +1,12 @@
-ChannelCount := 3
-ClientCount := 2
-ClientPID1 := 7996
-ClientPID2 := 8944
-ClientPID3 := 0
-ClientPID4 := 0
-ClientPID5 := 0
-
-;startup delay
-Sleep, 10000
+global ChannelCount := 3
+global ClientPIDs := [7996, 8944]
+global ClientCount := ClientPIDs.MaxIndex()
 
 ;Switches window focus to passed client
 SwapClient(clientNum)
 {
-	WinActivate ahk_pid ClientPID%clientNum%
-	Sleep, 900
+	temp := ClientPIDs[clientNum]
+	WinActivate ahk_pid %temp%
 }
 
 ;Swaps to channel using system menu based on the channel passed (1 to 3)
@@ -32,7 +25,7 @@ SwapChannel(toChannel)
 	if toChannel = 1
 		MouseClick, left,  943,  477
 	else if toChannel = 2
-		MouseClick, left,  950,  498
+		MouseClick, left,  943,  498
 	else if toChannel = 3
 		MouseClick, left,  943,  514
 		
@@ -42,12 +35,14 @@ SwapChannel(toChannel)
 }
 
 ;Program
+SwapClient(1)
+Sleep, 10000
 Loop
 {
 	CurrentChannel := 1
 	Loop, %ChannelCount%
 	{
-		;Gather on each client
+		;Gather on each client, in ascending order
 		CurrentClient := 1
 		Loop, %ClientCount%
 		{
@@ -60,15 +55,21 @@ Loop
 			}
 		}
 		
-		;Swap channel on each client
+		;Swap channel on each client, in descending order
 		Loop, %ClientCount%
 		{
 			if %CurrentChannel% < %ChannelCount%
 				SwapChannel(%CurrentChannel%+1)
 			else
 				SwapChannel(1)
+				
+			if %CurrentClient% > 1
+			{
+				SwapClient(%CurrentClient%-1)
+				CurrentClient -= 1
+			}
 		}
-		SwapChannel(1)
+		
 		;Wait for the last one to load in
 		Sleep, 10000
 	}

@@ -1,3 +1,6 @@
+;IMPORTANT NOTE:
+;USING THIS PROGRAM IS AGAINST TOS AS CONFIRMED BY THE SUPPORT TEAM
+
 ;TODO
 ;Add support for plentiful nodes
 ;Add UI popup to enter in starting channel

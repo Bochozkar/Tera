@@ -4,6 +4,7 @@
 ;TODO
 ;Add support for plentiful nodes
 ;Add UI popup to enter in starting channel
+;Add read/write to external file to save mouse co-ords
 
 global ChannelCount := 3 ;max 3
 global ClientPIDs := [1234, 4567, 1337]

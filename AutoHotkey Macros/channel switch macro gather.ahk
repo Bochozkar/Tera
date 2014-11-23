@@ -7,9 +7,9 @@
 ;Add read/write to external file to save mouse co-ords
 
 global ChannelCount := 3 ;max 3
-global ClientPIDs := [1234, 4567, 1337]
+global ClientPIDs := [3240, 5136, 6516]
 global ClientCount := ClientPIDs.MaxIndex()
-global StartingChannel := 2
+global StartingChannel := 1
 global DelayMultiplier := 1.0
 
 ;Exits program if holding Shift

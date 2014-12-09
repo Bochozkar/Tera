@@ -1,7 +1,7 @@
 ;IMPORTANT NOTE:
 ;You must be at your computer or else this is against ToS
 
-global ClientPIDs := [104748, 103772, 108008, 109092, 107464, 107232, 109380, 109344]
+global ClientPIDs := [102836, 99580, 100044, 99052] ;102836, 99580, 100044, 99052
 global ClientCount := ClientPIDs.MaxIndex()
 
 ;Exits program if holding Shift
@@ -18,7 +18,12 @@ SwapClient(clientNum)
 	ExitCall()
 	
 	temp := ClientPIDs[clientNum]
-	ControlSend, , f, ahk_pid %temp%
+	ControlSend, , 6, ahk_pid %temp%
+	Sleep, 3000
+	ControlSend, , 6, ahk_pid %temp%
+	Sleep, 3000
+	ControlSend, , 8, ahk_pid %temp%
+	Sleep, 3000
 	;WinActivate, ahk_pid %temp%
 	;WinWaitActive, ahk_pid %temp%
 }
@@ -27,18 +32,14 @@ SwapClient(clientNum)
 Sleep, 2000
 Loop,
 {
-	;Gather on each client
+	;Feed pet on each client
 	for index,PID in ClientPIDs
 	{			
 		SwapClient(index)
 		Sleep, 10
 	}
 	
-	;Wait for the nodes to respawn
-	Loop, 35
-	{
-		Random, rand, 1000, 1050
-		Sleep, %rand%
-		ExitCall()
-	}
+	;Wait for pet to be more hungry
+	Sleep, 29 * 60 * 1000
+	ExitCall()
 }

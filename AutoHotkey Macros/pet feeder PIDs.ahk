@@ -1,7 +1,7 @@
 ;IMPORTANT NOTE:
 ;You must be at your computer or else this is against ToS
 
-global ClientPIDs := [102836, 99580, 100044, 99052] ;102836, 99580, 100044, 99052
+global ClientPIDs := [34368, 49224, 49140, 14880] ;102836
 global ClientCount := ClientPIDs.MaxIndex()
 
 ;Exits program if holding Shift

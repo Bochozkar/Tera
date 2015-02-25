@@ -1,7 +1,7 @@
 ;IMPORTANT NOTE:
 ;You must be at your computer or else this is against ToS
 
-global ClientPIDs := [34368, 49224, 49140, 14880] ;102836
+global ClientPIDs := [16676, 14776, 17560, 12940, 14456, 15880, 17088, 16656] ;102836
 global ClientCount := ClientPIDs.MaxIndex()
 
 ;Exits program if holding Shift
@@ -40,6 +40,6 @@ Loop,
 	}
 	
 	;Wait for pet to be more hungry
-	Sleep, 29 * 60 * 1000
+	Sleep, 28 * 60 * 1000
 	ExitCall()
 }

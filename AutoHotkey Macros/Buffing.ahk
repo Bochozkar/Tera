@@ -1,12 +1,12 @@
 ;IMPORTANT NOTE:
 ;You must be at your computer or else this is against ToS
 
-global ClientPID := 37956
+global ClientPID := 13020
 global Buffs := ["1", "2", "3", "5", "4", "="]
 global StartupText := ["initializing buff mode...", "buff mode; activated - prepare for buffs", "please stand close for buffs if you would like them, i aim to serve you for all of your cute elin adventures o;"]
 
 Sleep, 500
-;StartupText()
+StartupText()
 Sleep, 500
 BuffLoop()
 

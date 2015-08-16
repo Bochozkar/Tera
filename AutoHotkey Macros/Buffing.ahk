@@ -1,7 +1,7 @@
 ;IMPORTANT NOTE:
 ;You must be at your computer or else this is against ToS
 
-global ClientPID := 13020
+global ClientPID := 282984
 global Buffs := ["1", "2", "3", "5", "4", "="]
 global StartupText := ["initializing buff mode...", "buff mode; activated - prepare for buffs", "please stand close for buffs if you would like them, i aim to serve you for all of your cute elin adventures o;"]
 
@@ -30,8 +30,20 @@ BuffLoop()
 		
 		for index,PID in Buffs
 		{
-			ControlSend, , %PID%, ahk_pid %ClientPID%
-			Sleep, 2000
+			GetKeyState, state, Ctrl
+			if state != D 
+			{
+				GetKeyState, state, Shift
+				if state != D 
+				{
+					GetKeyState, state, Alt
+					if state != D 
+					{
+						ControlSend, , %PID%, ahk_pid %ClientPID%
+						Sleep, 2000
+					}
+				}
+			}
 		}
 		
 		Sleep, 15000
